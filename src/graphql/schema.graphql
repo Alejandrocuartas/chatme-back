@@ -1,0 +1,19 @@
+type Query {
+    users: [User]!
+}
+
+type User {
+    id: Int!
+    name: String!
+    last_name: String!
+    username: String!
+    photo: String!
+    password: String!
+}
+
+type Message {
+    id: Int!
+    message: String!
+    emitter: Int!
+    listener: Int!
+}
