@@ -6,6 +6,7 @@ const jwtGenerator = (payload: User): Promise<string> =>
     new Promise((resolve, reject) => {
         jwt.sign(
             payload,
+            process.env.JWT_KEY,
             {
                 expiresIn: "12h",
             },

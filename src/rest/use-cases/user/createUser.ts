@@ -11,6 +11,9 @@ const createUser = async (data: CreateUserInput) => {
         let photo;
         if (data.photo) {
             photo = await helpers.uploadPhoto(data.photo);
+        } else {
+            photo =
+                "https://i.pinimg.com/236x/8f/86/37/8f8637791ff972927e30bef9a614867f--riwayat-hidup-montana.jpg";
         }
         return orm.user.create({
             data: {

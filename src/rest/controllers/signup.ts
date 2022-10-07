@@ -5,7 +5,20 @@ import useCases from "../use-cases";
 
 const signUp = async (req: Request, res: Response) => {
     try {
-        const newUser = await useCases.createUser(req.body);
+        let imgPath;
+        const existFile = "files" in req;
+        if (existFile) {
+            // @ts-ignore
+            const { tempFilePath } = req.files.profile;
+            imgPath = tempFilePath;
+        }
+        const newUser = await useCases.createUser({
+            name: req.body.name,
+            username: req.body.username,
+            password: req.body.password,
+            last_name: req.body.last_name,
+            photo: imgPath,
+        });
         if (newUser) {
             const jwt = await helpers.jwtGenerator(newUser);
             return res.status(200).json({

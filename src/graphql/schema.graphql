@@ -1,5 +1,11 @@
 type Query {
     users: [User]!
+    login(username: String!, password: String!): LoginResponse!
+}
+
+type LoginResponse {
+    user: User!
+    jwt: String!
 }
 
 type User {
