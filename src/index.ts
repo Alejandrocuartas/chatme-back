@@ -4,11 +4,23 @@ import http from "http";
 import path from "path";
 import { PrismaClient } from "@prisma/client";
 import { readFileSync } from "fs";
+import { Server } from "socket.io";
+import { instrument } from "@socket.io/admin-ui";
 
+import socketController from "./socketController";
 import resolvers from "./graphql/resolvers";
 import app from "./server";
 
 const httpServer = http.createServer(app);
+const io = new Server(httpServer, {
+    cors: {
+        origin: ["https://admin.socket.io"],
+        credentials: true,
+    },
+});
+instrument(io, {
+    auth: false,
+});
 const typeDefs = readFileSync(
     path.join(__dirname, "graphql/schema.graphql"),
     "utf8"
@@ -40,6 +52,8 @@ const orm = new PrismaClient();
         // /graphql. Optionally provide this to match apollo-server.
         path: "/graphql",
     });
+
+    io.on("connection", socketController);
 
     // Modified server startup
     await new Promise<void>((resolve) =>

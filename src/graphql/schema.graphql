@@ -1,6 +1,13 @@
 type Query {
     users: [User]!
     login(username: String!, password: String!): LoginResponse!
+    chats: [User]!
+    messages(person1: Int!, person2: Int!): [Message]!
+}
+
+type Mutation {
+    newMessage(message: String!, emitter: Int!, listener: Int!): Message!
+    deleteMessage(id: Int!): Message
 }
 
 type LoginResponse {
@@ -20,6 +27,6 @@ type User {
 type Message {
     id: Int!
     message: String!
-    emitter: Int!
-    listener: Int!
+    emitter_id: Int!
+    listener_id: Int!
 }
