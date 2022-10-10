@@ -27,21 +27,20 @@ const typeDefs = readFileSync(
 );
 const orm = new PrismaClient();
 
-!(async function () {
-    // Same ApolloServer initialization as before, plus the drain plugin.
-    const server = new ApolloServer({
-        typeDefs,
-        resolvers,
-        context: ({ req }) => {
-            return {
-                orm,
-                // @ts-ignore
-                username: req.username,
-            };
-        },
-        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-    });
+export const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }) => {
+        return {
+            orm,
+            // @ts-ignore
+            username: req.username,
+        };
+    },
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+});
 
+async function runServer() {
     // More required logic for integrating with Express
     await server.start();
     server.applyMiddleware({
@@ -57,7 +56,9 @@ const orm = new PrismaClient();
 
     // Modified server startup
     await new Promise<void>((resolve) =>
-        httpServer.listen({ port: process.env.PORT }, resolve)
+        httpServer.listen({ port: process.env.PORT || 3000 }, resolve)
     );
-    console.log(`Server ready at ${process.env.PORT}`);
-})();
+    console.log(`Server ready at ${process.env.PORT || 3000}`);
+}
+
+runServer();

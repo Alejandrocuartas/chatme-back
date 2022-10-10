@@ -1,42 +1,49 @@
 {
-  "name": "chatme-back",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
-  "scripts": {
-    "dev": "ts-node src/index.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Alejandrocuartas/chatme-back.git"
-  },
-  "keywords": [],
-  "author": "Alejandro Cuartas Marin <cuartasmarin734@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Alejandrocuartas/chatme-back/issues"
-  },
-  "homepage": "https://github.com/Alejandrocuartas/chatme-back#readme",
-  "devDependencies": {
-    "@socket.io/admin-ui": "^0.5.1",
-    "@types/bcryptjs": "^2.4.2",
-    "@types/express": "^4.17.14",
-    "@types/node": "^18.8.2",
-    "prisma": "^4.4.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
-  },
-  "dependencies": {
-    "@prisma/client": "^4.4.0",
-    "apollo-server-core": "^3.10.2",
-    "apollo-server-express": "^3.10.2",
-    "bcryptjs": "^2.4.3",
-    "cloudinary": "^1.32.0",
-    "cors": "^2.8.5",
-    "express": "^4.18.1",
-    "express-fileupload": "^1.4.0",
-    "graphql": "^16.6.0",
-    "jsonwebtoken": "^8.5.1",
-    "socket.io": "^4.5.2"
-  }
+    "name": "chatme-back",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "dev": "ts-node src/index.ts",
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Alejandrocuartas/chatme-back.git"
+    },
+    "keywords": [],
+    "author": "Alejandro Cuartas Marin <cuartasmarin734@gmail.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Alejandrocuartas/chatme-back/issues"
+    },
+    "homepage": "https://github.com/Alejandrocuartas/chatme-back#readme",
+    "devDependencies": {
+        "@socket.io/admin-ui": "^0.5.1",
+        "@types/bcryptjs": "^2.4.2",
+        "@types/express": "^4.17.14",
+        "@types/jest": "^29.1.2",
+        "@types/node": "^18.8.2",
+        "@types/supertest": "^2.0.12",
+        "graphql-tag": "^2.12.6",
+        "jest": "^29.1.2",
+        "prisma": "^4.4.0",
+        "supertest": "^6.3.0",
+        "ts-jest": "^29.0.3",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.8.4"
+    },
+    "dependencies": {
+        "@prisma/client": "^4.4.0",
+        "apollo-server-core": "^3.10.2",
+        "apollo-server-express": "^3.10.2",
+        "bcryptjs": "^2.4.3",
+        "cloudinary": "^1.32.0",
+        "cors": "^2.8.5",
+        "express": "^4.18.1",
+        "express-fileupload": "^1.4.0",
+        "graphql": "^16.6.0",
+        "jsonwebtoken": "^8.5.1",
+        "socket.io": "^4.5.2"
+    }
 }
