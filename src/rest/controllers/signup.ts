@@ -6,8 +6,9 @@ import useCases from "../use-cases";
 const signUp = async (req: Request, res: Response) => {
     try {
         let imgPath;
-        const existFile = "files" in req;
-        if (existFile) {
+        // @ts-ignore
+        const doNotExistFile = req.files === null;
+        if (!doNotExistFile) {
             // @ts-ignore
             const { tempFilePath } = req.files.profile;
             imgPath = tempFilePath;

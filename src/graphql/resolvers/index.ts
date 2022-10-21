@@ -100,7 +100,8 @@ const chats = async (
             return m.emitter;
         }
     });
-    return chats;
+    const notRepeatedChats = helpers.cleanArray(chats);
+    return notRepeatedChats;
 };
 
 const messages = async (

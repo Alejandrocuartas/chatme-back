@@ -7,14 +7,13 @@ import { readFileSync } from "fs";
 import { Server } from "socket.io";
 import { instrument } from "@socket.io/admin-ui";
 
-import socketController from "./socketController";
 import resolvers from "./graphql/resolvers";
 import app from "./server";
 
 const httpServer = http.createServer(app);
-const io = new Server(httpServer, {
+export const io = new Server(httpServer, {
     cors: {
-        origin: ["https://admin.socket.io"],
+        origin: ["https://admin.socket.io", "http://localhost:8080"],
         credentials: true,
     },
 });
@@ -52,7 +51,53 @@ async function runServer() {
         path: "/graphql",
     });
 
-    io.on("connection", socketController);
+    io.on("connection", (socket) => {
+        // @ts-ignore
+        socket.roomCode = "";
+
+        socket.on("join-room", (room: string) => {
+            socket.join(room);
+            // @ts-ignore
+            socket.roomCode = room;
+        });
+        socket.on("leave-room", (room: string) => {
+            socket.leave(room);
+            // @ts-ignore
+            socket.roomCode = undefined;
+        });
+        socket.on(
+            "send-message",
+            async (data: { room: string; emitter: number }) => {
+                const messages = await orm.message.findMany({
+                    where: {
+                        OR: [
+                            {
+                                emitter_id: data.emitter,
+                                listener_id: +data.room,
+                            },
+                            {
+                                emitter_id: +data.room,
+                                listener_id: data.emitter,
+                            },
+                        ],
+                    },
+                });
+                const room = `${data.emitter}+${data.room}`;
+                io.to(room).emit("receive-message", messages);
+            }
+        );
+        socket.on("users-search", async (username) => {
+            const users = await orm.user.findMany({
+                where: {
+                    username: {
+                        startsWith: username,
+                    },
+                },
+                take: 10,
+            });
+            socket.emit("partial-search", users);
+        });
+    });
 
     // Modified server startup
     await new Promise<void>((resolve) =>
