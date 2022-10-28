@@ -13,7 +13,11 @@ import app from "./server";
 const httpServer = http.createServer(app);
 export const io = new Server(httpServer, {
     cors: {
-        origin: ["https://admin.socket.io", "http://localhost:8080"],
+        origin: [
+            "https://admin.socket.io",
+            "http://localhost:8080",
+            "https://chatme-ale31jo.netlify.app",
+        ],
         credentials: true,
     },
 });

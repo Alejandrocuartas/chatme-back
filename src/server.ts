@@ -6,7 +6,11 @@ import middlewares from "./rest/middlewares";
 
 const app = express();
 
-app.use(cors());
+app.use(
+    cors({
+        origin: ["http://localhost:8080", "https://chatme-ale31jo.netlify.app"],
+    })
+);
 app.use(express.json());
 app.use(middlewares.authMiddleware);
 app.use(
