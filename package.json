@@ -13,6 +13,9 @@
         "migrate:dev": "npx prisma migrate dev",
         "migrate:deploy": "npx prisma migrate deploy"
     },
+    "engines": {
+        "node": "16.x"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Alejandrocuartas/chatme-back.git"
