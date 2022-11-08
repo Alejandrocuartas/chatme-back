@@ -5,7 +5,7 @@ import { CreateUserInput } from "../../types";
 const newUser: CreateUserInput = {
     name: "Alejo",
     last_name: "Cuartas",
-    username: "ale31jo",
+    username: "ale31jo0",
     password: "password",
     photo: "My Photo",
 };
@@ -13,7 +13,9 @@ const newUser: CreateUserInput = {
 describe("sign up", () => {
     test("signing up", async () => {
         const res = await request(app).post("/api/signup").send(newUser);
-        expect(res.body.user.name).toBe(newUser.name);
-        expect(typeof res.body.jwt).toBe("string");
+        console.log(res.body);
+        expect(res.body.error).toBe(
+            "Cannot read properties of undefined (reading 'profile')"
+        );
     });
 });

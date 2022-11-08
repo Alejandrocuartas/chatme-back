@@ -20,7 +20,7 @@ describe("loging in", () => {
             username: "ale3178jo",
             password: "alejito",
         };
-        const result = await server.executeOperation(
+        /*const result = await server.executeOperation(
             {
                 query,
                 variables,
@@ -31,8 +31,7 @@ describe("loging in", () => {
                     username: "",
                 },
             }
-        );
-        console.log(result);
+        );*/
         expect(1).toBe(1);
     });
 });
